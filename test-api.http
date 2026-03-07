@@ -1,6 +1,23 @@
-# filename : test-api.http
+# Get Me
 GET http://localhost:8899/api/auth/me
 ###
+
+# Register
+POST http://localhost:8899/api/auth/register HTTP/1.1
+content-type: application/json
+
+{
+ # "identity" : "1234567890",
+ "identity" : "someone@ggg.mail",
+ "firstName" : "someone",
+ "lastName" : "codecamp",
+ "password" : "123456",
+ "confirmPassword" : "123456"
+}
+###
+
+
+#Login
 POST http://localhost:8899/api/auth/login HTTP/1.1
 content-type: application/json
 
@@ -9,6 +26,8 @@ content-type: application/json
  "password" : "a1234"
 }
 ###
+
+
 POST http://localhost:8899/api/post HTTP/1.1
 content-type: application/json
 
