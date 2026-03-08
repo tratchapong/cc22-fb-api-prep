@@ -2,36 +2,27 @@ import bcrypt from 'bcrypt'
 import createHttpError from 'http-errors'
 import { prisma } from '../lib/prisma.js'
 import identityKeyUtil from '../utils/identity-key.util.js'
+import { registerSchema } from '../validations/schema.js'
 
 
 export async function register(req, res, next) {
-  console.log(req.body)
- const {identity, firstName, lastName, password, confirmPassword} = req.body
+
  // validation
- if(!identity.trim() || !firstName.trim() || !lastName.trim() || !password.trim() || !confirmPassword.trim()) {
-   return next(createHttpError[400]('fill all inputs')) }
- if(confirmPassword !== password) {
-   return next(createHttpError[400]('check confirm-password ')) }
- // check Identity is email or mobile
- const identityKey = identityKeyUtil(identity)
- if(!identityKey) {
-   return next(createHttpError[400]('identity must be email or phone number')) }
+ const data = await registerSchema.parseAsync(req.body)
+ const identityKey = data.email ? 'email' : 'mobile'
+
  // find user for non-duplicate
  const haveUser = await prisma.user.findUnique({
-   // @ts-ignore
-   where : { [identityKey] : identity }})
+   where : { [identityKey] : data[identityKey] }})
  if(haveUser) {
    return next(createHttpError[409]('This user already register')) }
- const newUser = {
-   [identityKey] : identity,
-   password : await bcrypt.hash(password, 10),
-   firstName : firstName,
-   lastName : lastName }
- const result = await prisma.user.create({data : newUser})
+
+// create new user in DB
+ const result = await prisma.user.create({data : data})
  res.json({
    msg : 'Register Successful',
-   result : result }) 
-
+   result : result
+  }) 
 }
 
 
