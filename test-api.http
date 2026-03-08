@@ -7,8 +7,9 @@ POST http://localhost:8899/api/auth/register HTTP/1.1
 content-type: application/json
 
 {
+ "identity" : "",
 #  "identity" : "1234567890",
- "identity" : "someone@ggg.mail",
+#  "identity" : "someone@ggg.mail",
  "firstName" : "someone",
  "lastName" : "codecamp",
  "password" : "123456",
@@ -22,12 +23,13 @@ POST http://localhost:8899/api/auth/login HTTP/1.1
 content-type: application/json
 
 {
- "identity" : "andy@cc20.th",
- "password" : "a1234"
+#  "identity" : "1111111111",
+ "identity" : "ndy@ggg.mail",
+ "password" : "123456"
 }
 ###
 
-
+#Create new post 
 POST http://localhost:8899/api/post HTTP/1.1
 content-type: application/json
 
