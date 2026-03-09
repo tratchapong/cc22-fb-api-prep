@@ -7,8 +7,8 @@ POST http://localhost:8899/api/auth/register HTTP/1.1
 content-type: application/json
 
 {
- "identity" : "",
-#  "identity" : "1234567890",
+#  "identity" : "",
+ "identity" : "1234567890",
 #  "identity" : "someone@ggg.mail",
  "firstName" : "someone",
  "lastName" : "codecamp",
@@ -24,7 +24,7 @@ content-type: application/json
 
 {
 #  "identity" : "1111111111",
- "identity" : "ndy@ggg.mail",
+ "identity" : "andy@ggg.mail",
  "password" : "123456"
 }
 ###

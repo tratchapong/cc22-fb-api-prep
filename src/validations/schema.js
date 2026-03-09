@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const mobileRegex = /^[0-9]{10,15}$/
 
-const identityKey = val => emailRegex.test(val) ? 'email' : mobileRegex.test(val) ? 'mobile' : ''
+const identityKey = val => emailRegex.test(val) ? 'email' : 'mobile' 
 
 export const registerSchema = z.object({
    identity: z.string().min(2, "Email or phone-number require")
