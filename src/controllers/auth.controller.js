@@ -64,6 +64,5 @@ export async function login(req, res, next) {
 }
 
 export async function getMe(req, res, next) {
-
-  res.json({ message: 'Getme service' })
+  res.json( { user: req.user } )
 }

@@ -1,5 +1,6 @@
 # Get Me
 GET http://localhost:8899/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzczMDQ5MDUzLCJleHAiOjE3NzQzNDUwNTN9.XktWD_xZBrvSe81HT6VVIMTHL6X5zbwk_n2sl5IXz2A
 ###
 
 # Register
@@ -23,8 +24,8 @@ POST http://localhost:8899/api/auth/login HTTP/1.1
 content-type: application/json
 
 {
-#  "identity" : "1111111111",
- "identity" : "andy@ggg.mail",
+ "identity" : "1111111111",
+# "identity" : "andy@ggg.mail",
  "password" : "123456"
 }
 ###
