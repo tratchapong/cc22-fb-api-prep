@@ -22,9 +22,21 @@ const userData = [
 ]
 async function main() {
   console.log('Start clean table...');
-  await prisma.$executeRawUnsafe(`SET FOREIGN_KEY_CHECKS = 0;`);
-  await prisma.$executeRaw`TRUNCATE TABLE User`
-  await prisma.$executeRawUnsafe(`SET FOREIGN_KEY_CHECKS = 1;`);
+  const modelNames = Object.keys(prisma).filter(
+    (key) => !key.startsWith('$') && !key.startsWith('_') && key !== 'constructor'
+  );
+
+  await prisma.$transaction(async (tx) => {
+    await tx.$executeRawUnsafe('SET FOREIGN_KEY_CHECKS = 0;');
+
+    for (const name of modelNames) {
+      // ใช้ Backticks ครอบชื่อเสมอเพื่อความชัวร์
+      await tx.$executeRawUnsafe(`TRUNCATE TABLE \`${name}\`;`);
+    }
+
+    await tx.$executeRawUnsafe('SET FOREIGN_KEY_CHECKS = 1;');
+  });
+
   console.log('Start seeding...');
   const createdUsers = await prisma.user.createMany({
     data: userData,
